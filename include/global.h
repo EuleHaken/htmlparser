@@ -2,7 +2,7 @@
 #define GLOBAL_H
 
 #ifdef PARSER_NAMESPACE
-#   define PARSER_BEGIN_NAMESPACE namespace parser {
+#   define PARSER_BEGIN_NAMESPACE namespace PARSER_NAMESPACE {
 #   define PARSER_END_NAMESPACE }
 #else
 #   define PARSER_BEGIN_NAMESPACE
