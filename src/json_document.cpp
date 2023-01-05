@@ -25,19 +25,19 @@ json_document::json_document() : token_parser(), _root(nullptr)
     this->init();
 }
 
-parser::json_document::json_document(parser::json_array *root)
+json_document::json_document(json_array *root)
  : token_parser(), _root(root)
 {
     init();
 }
 
-parser::json_document::json_document(parser::json_object *root)
+json_document::json_document(json_object *root)
  : token_parser(), _root(root)
 {
     init();
 }
 
-std::string json_document::to_string(parser::print_type type) const
+std::string json_document::to_string(print_type type) const
 {
     string_renderer r(type);
     _root->render(r);

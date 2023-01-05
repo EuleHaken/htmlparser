@@ -11,17 +11,17 @@ json_object::json_object() : json_value ()
 
 }
 
-parser::json_object::~json_object()
+json_object::~json_object()
 {
 
 }
 
-void parser::json_object::insert(const std::string &name, parser::json_value *value)
+void json_object::insert(const std::string &name, json_value *value)
 {
     _values[name] = value;
 }
 
-json_value *parser::json_object::get(const std::string &name)
+json_value *json_object::get(const std::string &name)
 {
     return _values[name];
 }

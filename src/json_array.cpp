@@ -11,17 +11,17 @@ json_array::json_array() : json_value()
 
 }
 
-parser::json_array::~json_array()
+json_array::~json_array()
 {
 
 }
 
-void parser::json_array::add(parser::json_value *v)
+void json_array::add(json_value *v)
 {
     _values.push_back(v);
 }
 
-parser::json_value *parser::json_array::at(const size_t &pos) const
+json_value *json_array::at(const size_t &pos) const
 {
     return _values.at(pos);
 }

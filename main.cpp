@@ -1,55 +1,62 @@
-#include <iostream>
-#include <algorithm>
 #include <json_object.h>
+#include <algorithm>
 #include <chrono>
+#include <iostream>
 
-#include "include/json_value.h"
-#include "include/token_parser.h"
 #include "include/css_document.h"
 #include "include/html_document.h"
 #include "include/html_node.h"
-#include "include/query_parser.h"
 #include "include/json_document.h"
+#include "include/json_value.h"
+#include "include/token_parser.h"
 
-#define ASSERT(T) \
-    if (!(T)) { \
-    std::cerr << "Assert faild on line: " << __LINE__ << " : (" << #T << ")" << std::endl; \
-    exit(1); \
+#define ASSERT(T)                                                         \
+    if (!(T))                                                             \
+    {                                                                     \
+        std::cerr << "Assert faild on line: " << __LINE__ << " : (" << #T \
+                  << ")" << std::endl;                                    \
+        exit(1);                                                          \
     }
 
-#define START()  \
-    typedef std::chrono::high_resolution_clock clock_; \
+#define START()                                                    \
+    typedef std::chrono::high_resolution_clock clock_;             \
     typedef std::chrono::duration<double, std::ratio<1> > second_; \
     auto _start_time = clock_::now();
 
-#define PASSED() \
-    std::cout << std::endl \
-              << "All tests PASSED in: " \
-              << std::chrono::duration_cast<second_>(clock_::now() - _start_time).count() \
-              << "s" << std::endl; \
+#define PASSED()                                                     \
+    std::cout << std::endl                                           \
+              << "All tests PASSED in: "                             \
+              << std::chrono::duration_cast<second_>(clock_::now() - \
+                                                     _start_time)    \
+                     .count()                                        \
+              << "s" << std::endl;                                   \
     exit(0);
 
-using namespace parser;
+PARSER_USE_NAMESPACE
 
 static html_document html;
 static css_document css;
 static json_document json;
 
-void print(std::vector<std::string> tokens){
+void print(std::vector<std::string> tokens)
+{
     std::cout << "==== TOKENS ====" << std::endl;
-    for (std::string t : tokens) {
+    for (std::string t : tokens)
+    {
         std::cout << "\"" << t << "\" ";
     }
     std::cout << "================" << std::endl;
 }
 
-void print(std::string title, std::string text){
+void print(std::string title, std::string text)
+{
     std::cout << "==== " + title + " ====" << std::endl
               << text << std::endl
               << "================" << std::endl;
 };
 
-void init_test() {
+void init_test()
+{
     auto html_text = R"~(<!DOCTYPE HTML>
                      <html>
                      <head>
@@ -114,7 +121,8 @@ void init_test() {
     json.set_text(json_text);
 }
 
-int main() {
+int main()
+{
     START();
     init_test();
 
@@ -126,7 +134,7 @@ int main() {
     print("JSON compact", json.to_string(print_type::compact));
 
     auto tags = html.query("p.par>b");
-    std::for_each(tags.begin(), tags.end(), [](html_node *tag){
+    std::for_each(tags.begin(), tags.end(), [](html_node* tag) {
         tag->to_tag()->add_class("new-class");
     });
 
@@ -142,4 +150,3 @@ int main() {
 
     PASSED();
 }
-
